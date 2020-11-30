@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../dist/index.js"></script>
+</head>
+<body>
+  <script>
+    let server = new FakeWebSocket.WebSocketServer('ws://127.0.0.1:8080');
+    server.on('message', (e) => {
+      console.log('server get message', e.data);
+      server.send({ b: 2 });
+    });
+  </script>
+  <script>
+    let ws = new FakeWebSocket.WebSocket('ws://127.0.0.1:8080');
+
+    ws.onmessage = (e) => { 
+      console.log('client get message', e.data);
+    }; 
+
+    ws.onopen = (e) => {
+      ws.send({ a: 1 });
+    }
+
+    ws.onerror = (e) => {
+      console.error(e);
+    }
+  </script>
+</body>
+</html>
