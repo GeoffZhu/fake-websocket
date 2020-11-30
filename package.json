@@ -1,8 +1,8 @@
 {
   "name": "fake-websocket",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "fake websocket server & client in browser.",
-  "main": "rollup.config.js",
+  "main": "dist/index.js",
   "directories": {
     "test": "test"
   },
