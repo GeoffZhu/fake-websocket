@@ -1,28 +1,41 @@
-class WebSocketServer extends EventTarget {
+import mitt from 'mitt';
+
+const emitter = mitt();
+
+class WebSocketServer {
   constructor(url, protocol) {
-    super();
     this.clients = [];
 
-    this.clients._push = this.clients.push;
-    this.clients.push = port => {
-      port.onmessage = msg => {
-        const event = new MessageEvent('message', { data: msg.data });
-        this.onmessage && this.onmessage(event);
-        this.dispatchEvent(event);
+    this.clients.connect = port => {
+      const client = mitt();
+      client.send = (data) => {
+        port.postMessage(data);
       }
-      this.clients._push(port);
+
+      port.onmessage = (msg) => {
+        client.emit('message', { data: msg.data });
+      }
+
+      this.clients.push(client);
+      this.emit('connection', client);
     }
+
+    this.clients.close = port => {
+      let index = this.clients.findIndex(item => item._port === port);
+      this.clients[index].emit('close');
+      if (~index) this.clients.splice(index, 1);
+    };
 
     window.__fakeWebSocket__[url] = this.clients;
   }
-  on (type, callback) {
-    this.addEventListener(type, callback);
+  on(type, callback) {
+    emitter.on(type, callback);
   }
-
-  send (data) {
-    this.clients.forEach(port => {
-      port.postMessage(data);
-    });
+  off(type, callback) {
+    emitter.off(type, callback);
+  }
+  emit(type, data) {
+    emitter.emit(type, data);
   }
 }
 

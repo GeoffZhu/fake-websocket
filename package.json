@@ -21,5 +21,9 @@
   },
   "author": "GeoffZhu",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "mitt": "^2.1.0"
+  }
 }

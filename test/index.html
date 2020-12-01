@@ -9,9 +9,11 @@
 <body>
   <script>
     let server = new FakeWebSocket.WebSocketServer('ws://127.0.0.1:8080');
-    server.on('message', (e) => {
-      console.log('server get message', e.data);
-      server.send({ b: 2 });
+    server.on('connection', (ws) => {
+      ws.on('message', (e) => {
+        console.log('server get message', e.data);
+        ws.send({ b: 2 });
+      });    
     });
   </script>
   <script>
@@ -21,7 +23,7 @@
       console.log('client get message', e.data);
     }; 
 
-    ws.onopen = (e) => {
+    ws.onopen = () => {
       ws.send({ a: 1 });
     }
 
