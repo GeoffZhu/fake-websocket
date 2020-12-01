@@ -43,4 +43,4 @@ ws.onerror = (e) => {
 ## 干什么用
 
 - e2e测试，替换浏览器环境中WebSocket对象，实现Websocket本地模拟，无需启动server跑真实socket服务
-- 微信开发者工具逆向，微信开发者工具中，appservice(逻辑层)，pageframe(渲染层)和native交互采用websocket，替换后可浏览器内模拟并替换通信消息
+- 一些逆向工作需要，例如微信开发者工具中，appservice(逻辑层)，pageframe(渲染层)和native交互采用websocket，替换后可浏览器内模拟并替换通信消息
