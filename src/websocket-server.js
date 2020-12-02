@@ -11,7 +11,7 @@ class WebSocketServer {
 
       client.protocol = protocol;
       client.send = (data) => port.postMessage(data);
-      port.onmessage = (msg) => client.emit('message', { data: msg.data });
+      port.onmessage = (msg) => client.emit('message', msg.data);
 
       this.clients.push(client);
       this.emit('connection', client);
