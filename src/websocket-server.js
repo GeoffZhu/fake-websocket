@@ -3,18 +3,15 @@ import mitt from 'mitt';
 const emitter = mitt();
 
 class WebSocketServer {
-  constructor(url, protocol) {
+  constructor(url) {
     this.clients = [];
 
-    this.clients.connect = port => {
+    this.clients.connect = (port, protocol) => {
       const client = mitt();
-      client.send = (data) => {
-        port.postMessage(data);
-      }
 
-      port.onmessage = (msg) => {
-        client.emit('message', { data: msg.data });
-      }
+      client.protocol = protocol;
+      client.send = (data) => port.postMessage(data);
+      port.onmessage = (msg) => client.emit('message', { data: msg.data });
 
       this.clients.push(client);
       this.emit('connection', client);
