@@ -1,6 +1,6 @@
 {
   "name": "fake-websocket",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "fake websocket server & client in browser.",
   "main": "dist/index.js",
   "directories": {
@@ -17,13 +17,21 @@
     "@babel/plugin-proposal-private-methods": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
     "rollup": "^2.33.2"
   },
   "author": "GeoffZhu",
   "license": "MIT",
   "dependencies": {
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.0",
     "mitt": "^2.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeoffZhu/fake-websocket.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GeoffZhu/fake-websocket/issues"
+  },
+  "homepage": "https://github.com/GeoffZhu/fake-websocket#readme"
 }
