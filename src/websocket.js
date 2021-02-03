@@ -14,7 +14,6 @@ class WebSocket extends EventTarget {
 
     setTimeout(() => {
       this.#connect(url, protocol);
-      this.readyState = 1;
     }, 0);
   }
   #connect(url, protocol) {
@@ -31,6 +30,7 @@ class WebSocket extends EventTarget {
     // 将连接保存在全局变量中，方便server取
     if (window.__fakeWebSocket__[url]) {
       window.__fakeWebSocket__[url].connect(port2, protocol);
+      this.readyState = 1;
     } else {
       const event = new MessageEvent('error', { data: new Error(`Not have server ${url}`) });
       this.onerror && this.onerror(event);
