@@ -35,7 +35,7 @@ class WebSocketServer {
     this.emitter.emit(type, data);
   }
   destory() {
-    window.__fakeWebSocket__ = {};
+    delete window.__fakeWebSocket__[url];
   }
 }
 
