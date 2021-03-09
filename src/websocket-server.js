@@ -1,9 +1,9 @@
 import mitt from 'mitt';
 
-const emitter = mitt();
 
 class WebSocketServer {
   constructor(url) {
+    this.emitter = mitt();
     this.clients = [];
 
     this.clients.connect = (port, protocol) => {
@@ -26,13 +26,16 @@ class WebSocketServer {
     window.__fakeWebSocket__[url] = this.clients;
   }
   on(type, callback) {
-    emitter.on(type, callback);
+    this.emitter.on(type, callback);
   }
   off(type, callback) {
-    emitter.off(type, callback);
+    this.emitter.off(type, callback);
   }
   emit(type, data) {
-    emitter.emit(type, data);
+    this.emitter.emit(type, data);
+  }
+  destory() {
+    window.__fakeWebSocket__ = {};
   }
 }
 
