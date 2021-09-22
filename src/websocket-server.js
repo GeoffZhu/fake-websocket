@@ -3,16 +3,17 @@ import mitt from 'mitt';
 
 class WebSocketServer {
   constructor(url) {
+    this.url = url;
     this.emitter = mitt();
     this.clients = [];
 
     this.clients.connect = (port, protocol) => {
       const client = mitt();
 
+      client._port = port;
       client.protocol = protocol;
       client.send = (data) => port.postMessage(data);
       port.onmessage = (msg) => client.emit('message', msg.data);
-
       this.clients.push(client);
       this.emit('connection', client);
     }
@@ -35,7 +36,7 @@ class WebSocketServer {
     this.emitter.emit(type, data);
   }
   destory() {
-    delete window.__fakeWebSocket__[url];
+    delete window.__fakeWebSocket__[this.url];
   }
 }
 

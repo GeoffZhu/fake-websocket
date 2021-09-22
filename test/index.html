@@ -13,7 +13,7 @@
       ws.on('message', (e) => {
         console.log('server get message', e.data);
         ws.send({ b: 2 });
-      });    
+      });
     });
   </script>
   <script>
@@ -30,6 +30,10 @@
     ws.onerror = (e) => {
       console.error(e);
     }
+
+    setTimeout(() => {
+      ws.close()
+    }, 1000)
   </script>
 </body>
 </html>
